@@ -11,7 +11,7 @@ canvas {
   --dark-bg: rgba(15, 15, 15, 0.95);
   --spacing: 350px;
 
-  font-family: brandon-grotesque, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 400;
   font-style: normal;
 }
