@@ -65,11 +65,11 @@ scene.background = spaceTexture;
 
 // Avatar
 
-const jeffTexture = new THREE.TextureLoader().load('jeff.png');
+const dTexture = new THREE.TextureLoader().load('headshot.png');
 
-const jeff = new THREE.Mesh(new THREE.BoxGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: jeffTexture }));
+const d = new THREE.Mesh(new THREE.IcosahedronGeometry(3, 3, 3), new THREE.MeshBasicMaterial({ map: dTexture }));
 
-scene.add(jeff);
+scene.add(d);
 
 // Moon
 
@@ -89,8 +89,8 @@ scene.add(moon);
 moon.position.z = 30;
 moon.position.setX(-10);
 
-jeff.position.z = -5;
-jeff.position.x = 2;
+d.position.z = -5;
+d.position.x = 2;
 
 // Scroll Animation
 
@@ -100,8 +100,8 @@ function moveCamera() {
   moon.rotation.y += 0.075;
   moon.rotation.z += 0.05;
 
-  jeff.rotation.y += 0.01;
-  jeff.rotation.z += 0.01;
+  d.rotation.y += 0.01;
+  d.rotation.z += 0.01;
 
   camera.position.z = t * -0.01;
   camera.position.x = t * -0.0002;
@@ -120,7 +120,13 @@ function animate() {
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
 
+  d.rotation.x -= 0.005;
+  d.rotation.y -= 0.005;
+  d.rotation.z -= 0.02;
+
   moon.rotation.x += 0.005;
+
+
 
   // controls.update();
 
