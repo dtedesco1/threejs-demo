@@ -21,7 +21,21 @@ renderer.render(scene, camera);
 
 // Torus
 
-const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+
+const radius = 7;  // ui: radius
+const widthSegments = 12;  // ui: widthSegments
+const heightSegments = 8;  // ui: heightSegments
+const phiStart = Math.PI * 0.25;  // ui: phiStart
+const phiLength = Math.PI * 1.5;  // ui: phiLength
+const thetaStart = Math.PI * 0.25;  // ui: thetaStart
+const thetaLength = Math.PI * 0.5;  // ui: thetaLength
+const geometry = new THREE.SphereGeometry(
+    radius,
+    widthSegments, heightSegments,
+    phiStart, phiLength,
+    thetaStart, thetaLength);
+
+// const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
 const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
 const torus = new THREE.Mesh(geometry, material);
 
@@ -76,8 +90,29 @@ scene.add(d);
 const moonTexture = new THREE.TextureLoader().load('moon.jpg');
 const normalTexture = new THREE.TextureLoader().load('normal.jpg');
 
+class CustomSinCurve extends THREE.Curve {
+  constructor(scale) {
+    super();
+    this.scale = scale;
+  }
+  getPoint(t) {
+    const tx = t * 3 - 1.5;
+    const ty = Math.sin(2 * Math.PI * t);
+    const tz = 0;
+    return new THREE.Vector3(tx, ty, tz).multiplyScalar(this.scale);
+  }
+}
+
+const path = new CustomSinCurve(4);
+const tubularSegments = 20;  // ui: tubularSegments
+const moonRadius = 1;  // ui: radius
+const radialSegments = 8;  // ui: radialSegments
+const closed = false;  // ui: closed
+const moonGeometry = new THREE.TubeGeometry(
+    path, tubularSegments, moonRadius, radialSegments, closed);
+
 const moon = new THREE.Mesh(
-  new THREE.SphereGeometry(3, 32, 32),
+  moonGeometry, //new THREE.SphereGeometry(3, 32, 32),
   new THREE.MeshStandardMaterial({
     map: moonTexture,
     normalMap: normalTexture,
